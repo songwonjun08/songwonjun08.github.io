@@ -6,5 +6,5 @@ categories: test
 
 ## Empty diary template245
 
-Empty post template
+ㅌㅔㅅㅡㅌㅡ ㅇㅣㅂㄴㅣㄷㅏ 
 
