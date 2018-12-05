@@ -1,6 +1,6 @@
 # Site settings
-title: LiXizhi's Personal Website
-email: lixizhi@yeah.net
+title: Wonjun Song's Personal Website
+email: songwonjun08@gmail.com
 description: Xizhi's Ideas & Blogs
 # > # this means to ignore newlines until "baseurl:"
 #   Write an awesome description for your new site here. You can edit this
@@ -8,9 +8,9 @@ description: Xizhi's Ideas & Blogs
 #   Google search results) and in your feed.xml site description.
 
 # baseurl: "" # the subpath of your site, e.g. /blog/
-# url: "http://yourdomain.com" # the base hostname & protocol for your site
-# twitter_username: jekyllrb
-github_username: LiXizhi
+# url: "http://songwonjun08.github.io/" # the base hostname & protocol for your site
+# twitter_username: songwonjun08
+github_username: songwonjun08
 permalink: /:year/:month/:day/:title/
 # this is the url root of the view source link on the footer page.
 viewsourceroot: https://github.com/LiXizhi/LiXizhi.github.io/blob/master/
