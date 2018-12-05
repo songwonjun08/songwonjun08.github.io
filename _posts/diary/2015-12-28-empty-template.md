@@ -4,6 +4,9 @@ comments: false
 categories: diary
 ---
 
-## Empty diary template
+## 다이어리
 
 Empty post template
+
+다이어리입니다.
+
