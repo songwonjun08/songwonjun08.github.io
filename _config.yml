@@ -8,7 +8,7 @@ description: Xizhi's Ideas & Blogs
 #   Google search results) and in your feed.xml site description.
 
 # baseurl: "" # the subpath of your site, e.g. /blog/
-# url: "http://songwonjun08.github.io/" # the base hostname & protocol for your site
+# url: "https://songwonjun08.github.io/" # the base hostname & protocol for your site
 # twitter_username: songwonjun08
 github_username: songwonjun08
 permalink: /:year/:month/:day/:title/
