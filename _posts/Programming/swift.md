@@ -1,0 +1,87 @@
+---
+layout: page
+title: Projects
+comments: false
+typora-root-url: ./Images
+---
+
+[TOC]
+
+# Swift
+
+개인용도로 Swift 관련 정보, 자료를 정리한 글입니다.
+ 
+
+## MVC Pattern 
+
+![mvc](/mvc.png)
+
+- Model : 앱의 비즈니스 로직(데이터 입력 수정 조회 등등의 각종 처리업무) 그리고 데이터를 관장하는 영역.
+  View : 유저에게 보여지는 부분(UI)를 담당하는 영역.
+  Controller : View와 Model을 이어주는 역할을 함. iOS에서 Controller는 주로 UIViewController의 서브클래스로 선언됨.
+
+- MVC구조 (Model-View-Controller)는 Model과 View 코드들을 분리하는것을 통해 범용성과 재사용성을 높여 개발 및 유지 보스를 쉽게 할수있게 한다.
+
+- Controller는 View와 Model과 자유롭게 소통한다. 반대로 View와 Model은 독립적인 영역으로써 자신을 제어하는 Controller가 누군지도 모르며 서로 관여해서는 안된다.
+
+
+
+  ![mvc2](/mvc2.jpg)
+
+- Controller에서 View로 접근
+
+  1. Outlet
+     IBOutlet을 통해 Controller는 View에게 너가 보여줄 텍스트, 이미지는 이것이다와 같은 지시를 하게 됨.
+     注）XCode에서 보통 스토리보드에서 코드로 드래그하기때문에 View가 Controller에 말을 거는 것 처럼 착각할수가 있으나 실제로는 반대.
+
+     ```swift
+     @IBOutlet var txtField1: UITextField!
+     @IBOutlet var txtField2: UITextField!
+     @IBOutlet var plusButton: UIButton!
+     @IBOutlet var resultLabel: UILabel!
+     ```
+
+- View에서 Controller로 접근
+  이용자(User)는 View를 통해서 무언가의 명령을 내릴수도 있다. 때문에 MVC에서 View는 직접 컨트롤러에게 말을 걸어서는 안되지만 제한적으로 2가지 방법을 통해 말을 걸 수 있다.
+
+  1. IBAction
+     Controller가 자신에게 과녁(Target)을 설정해놓고 View에게 그 과녁에 쏠 화살(Action)을 건네주는 방법. 대표적으로 IBAction이 있다. 유저가 버튼을 누르면 화살(Action)이 발생(발사)되어 컨트롤러의 메서드(Target)이 작동함. 
+
+     ```swift
+     @IBAction func plusButtonClicked(_ sender: Any) {
+         }
+     ```
+
+  2. Delegation
+     Delegation Protocol을 통한 방법.
+     프로토콜 활용하여 View 클래스 안에 Controller 인스턴스를 만드는것과 비슷한 개념.
+     Delegation은 View가 자신에 대한 제어권을 Controller에게 위임하는 프로토콜.
+     예) 뷰의 테이블뷰의 Delegate, Data Source를 컨트롤러에 위임해서 제어권을 넘김
+
+
+
+     다음 5가지 행동을 하는 경우에 대한 권한이 위임된다.
+
+     **Delegate**
+     will : ~(스크롤, 셀 선택 등을) 하려는 순간
+     did : ~(스크롤, 셀 선택 등을) 막 한 이후
+     should : ~(스크롤, 셀 선택 등을) 하도록 하게 할 것인지
+
+     **DataSource**
+     data at : 해당 View에 표시해야 할 데이터가 무엇인지
+     count : 해당 View에 총 몇 개의 데이터가 존재하는지
+
+
+- Controller에서 Model로 접근
+  Controller에 Model 인스턴스를 만들어 주면 된다.
+
+- Model에서 Controller로 접근
+  Model은 자신의 데이터가 변할 때와 같이 무엇인가 알려줄 필요가 있을때, 라디오 스테이션 처럼 자신의 주파수에 맞춘 Controller및 Model들에게 관련 안내를 하는 구조로 교신을 하게 된다.
+
+
+
+  이러한 과정은 Observer 행동 패턴의 KVO(Key Value Observation)을 통해 수행되며 변경사항이 있을 경우 통지(Notification)이 가게 된다.
+
+ 
+
+## Observer 행동 패턴 (Notification, KVO)

@@ -1,5 +1,5 @@
 ---
-layout: page
+ayout: page
 title: Projects
 comments: false
 permalink: /projects/
