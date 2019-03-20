@@ -154,14 +154,28 @@ ex) C의 int, float, char...
 
   
 
+- 자유 공간 리스트
+
+  연결 리스트에서 삽입 연산을 위해서는 공백 노드를 가져오고 삭제된 노드에 대한 메모리 해제도 행해야만 한다.
+
+  만약에 완전히 새로운 원소가 아닌 미리 노드 구조로 만들어놓을수 있는 원소를 **자유 공간 리스트(free space list)** 형태로 만들어 놓고 이 노드를 사용할때는 메인 리스트에 할당, 사용하지 않을때는 자유공간 리스트에 반환하며 메모리 관리를 효율적으로 행할수 있다.
+
+
+  ![linkedlist](https://github.com/songwonjun08/songwonjun08.github.io/blob/master/images/linkedlist.jpeg?raw=true){: width="100%" height="100%"}
+
+  
+
 - 단순 연결 리스트(singly linked list)
 
   노드가 하나의 링크 필드에 의해서 다음 노드와 연결되는 구조를 가진 연결리스트
 
+  
+
 - 원형 연결 리스트(circular linked list)
 
-- 이중 연결 리스트(doubly linked list)
+  
 
+- 이중 연결 리스트(doubly linked list)
 - 이중 원형 연결 리스트(doubly circular linked list)
 
 
