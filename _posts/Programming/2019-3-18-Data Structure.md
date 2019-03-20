@@ -1,0 +1,163 @@
+---
+layout: page
+title: C 문법
+comments: false
+categories: Programming
+---
+
+* content
+{:toc}
+
+# 자료구조 (Data Structure)
+
+컴퓨터가 데이터를 어떻게 표현하는지, 어떻게 효율적으로 저장하고 처리할 것인지를 생각하고 구현하는 기초 이론.
+
+______
+
+## 1) 단순구조
+
+프로그래밍 언어의 정수형 실수형 문자 문자열 등의 데이터 타입에 해당하는 단순 구조.
+
+ex) C의 int, float, char...
+
+
+
+## 2) 선형구조
+
+## 2.1 선형리스트
+
+- 리스트(List)란 데이터를 나열한 목록을 의미하고, 선형 리스트는 이렇게 나열한 원소들이 순서(순차)를 가지고 있는 형태이다. 원소들의 순서와 메모리의 순서가 일치한다. 프로그래밍으로 선형리스트를 대표적으로 표현하는 방법은 **배열(Array)**이 있다.
+
+- 원소의 순서를 표시할 필요가 없고, 인덱스 번호를 이용해 특정 원소에 쉽게 엑세스가 가능하다.
+
+- 단점으로는 원소 삽입,삭제시 앞 뒤 원소들을 밀어내거나 당길 필요가 있음으로 연산이 많아진다. 따라서 **삽입 삭제가 많은 프로그램에서 순차 자료구조는 비효율적**이다.
+
+  ````c
+  // C언어 동적할당 이용해 배열 삽입 삭제의 함수를 만들었다.
+  // 배열의 원소가 많아지면 많아질수록 삽입,삭제시 연산이 많아지는걸 확인할수 있다.
+  #include <stdio.h>
+  #include <stdlib.h> // malloc, free 사용
+  
+  void print_arr(int **arr,int *arr_size) {
+      for(int i=0;i<*arr_size;i++) {
+          printf("%d ",(*arr)[i]);
+      }
+  }
+  
+  void insert_arr(int **arr,int *arr_size, int value) {
+      int* temp = (int*)malloc(sizeof(int) * (*arr_size+1));
+      
+      for(int i=0;i<*arr_size;i++) {
+          *(temp+i) = (*arr)[i];
+      }
+      
+      *(temp+*arr_size) = value;
+      free(*arr);
+      *arr = temp;
+      *arr_size+=1;
+  }
+  
+  void delete_arr(int **arr,int *arr_size, int position) {
+      int* temp = (int*)malloc(sizeof(int) * (*arr_size-1));
+      
+      for(int i=0;i<position;i++) {
+          *(temp+i) = (*arr)[i];
+      }
+      for(int i=position;i<*arr_size-1;i++) {
+          *(temp+i) = (*arr)[i+1];
+      }
+      free(*arr);
+      *arr = temp;
+      *arr_size-=1;
+  }
+  
+  int main(void) {
+      
+      // 한칸 짜리 int형 배열 동적 할당
+      int *arr = (int*)malloc(sizeof(int) * 1);
+      int arr_size = 1;
+      arr[0] = 0;
+      
+      insert_arr(&arr,&arr_size,1); // 배열에 value 1을 추가
+      insert_arr(&arr,&arr_size,3);
+      insert_arr(&arr,&arr_size,5);
+      print_arr(&arr,&arr_size);
+      
+      printf("\n");
+      delete_arr(&arr,&arr_size,2); // arr[2]를 삭제
+      print_arr(&arr,&arr_size);
+      
+      free(arr);
+      return 0;
+  }
+  
+  ````
+
+  
+
+- 다항식의 순차 자료 구조 표현 
+
+  4x^3 + 3x^2 + 4 이라는 다항식을 선형구조에서 표현한다 했을때, 배열의 인덱스는 **지수**를, 배열 원소에는 **항의 값**을 저장해준다. 
+
+  ex) arr[0] = 4,   arr[1] = 3,   arr[2] = 0,   arr[3] = 4
+
+  
+
+- 희소 다항식의 순차 자료 구조 표현
+
+  4x^1000 + x + 4 라는 다항식을 위와 같이 배열의 인덱스를 지수로 표현하면 998개의 배열 공간이 낭비된다. 따라서 이와 같은 희소 다항식의 경우는 **2차원 배열에서 <지수,계수>쌍을 저장**하는 경우가 좋다
+
+  ex) arr 0 0 = 1000	arr 0 1 = 3
+
+  ​      arr 1 0 = 1	      arr 1 1 = 1
+
+  ​      arr 2 0 = 0	      arr 2 1 = 4
+
+  
+
+- 행렬의 순차 자료 구조 표현
+
+  행의 개수가m 열의 개수가n인 m x n 행렬을 표현할때는 일반적으로 2차원 배열을 사용하면 된다.
+
+  
+
+- 희소 행렬의 순차 자료 구조 표현
+
+  원소의 대부분이 0 (혹은 특정한 같은 숫자)인 경우, 2차원 배열으로 행렬을 만들면 필요없는 공간이 많아진다
+
+  ex)
+
+  0 0 0 0 0 0
+
+  6 0 0 0 4 0
+
+  0 0 0 0 0 0
+
+  0 3 0 0 0 1
+
+  
+
+  arr 0 0 = 5(전체 행 개수),   arr 0 1 = 7(전체 열 개수),   arr 0 2 = 4(원소 개수)
+
+  arr 1 0 = 1,   arr 1 1 = 0,   arr 1 2 = 6
+
+  arr 2 0 = 1,   arr 2 1 = 4,   arr 2 2 = 4 ….
+
+  
+
+## 3) 비선형구조
+
+
+
+
+
+## 4) 파일구조
+
+
+
+
+
+
+
+____
+
