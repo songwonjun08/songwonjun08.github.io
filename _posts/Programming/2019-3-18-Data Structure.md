@@ -189,7 +189,119 @@ _____
 
   이중 연결 리스트에서 마지막 노드가 리스트의 첫번째 노드를 가리키게 하여 원형구조로 만든 연결 리스트
 
-  
+
+
+````C
+// 단순 연결 리스트 예제
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct ListNode {
+    char data[10];
+    struct ListNode* link;
+} listNode;
+
+typedef struct {
+    listNode* head;
+} linkedList_h;
+
+linkedList_h* createLinkedList_h(void) {
+    linkedList_h* L;
+    L = (linkedList_h*)malloc(sizeof(linkedList_h));
+    L -> head = NULL;
+    return L;
+}
+
+void addLastNode(linkedList_h* L, char* x) {
+    listNode* newNode;
+    listNode* p;
+    newNode = (listNode*)malloc(sizeof(listNode));
+    strcpy(newNode->data, x);
+    newNode->link = NULL;
+    if(L->head == NULL) {
+        L->head = newNode;
+        return;
+    }
+    p = L->head;
+    while(p->link != NULL) {
+        p = p->link;
+    }
+    p->link = newNode;
+}
+
+void deleteLastNode(linkedList_h *L) {
+    listNode* previous;
+    listNode* current;
+    if(L->head == NULL) return;
+    
+    if(L->head->link == NULL) {
+        free(L->head);
+        L->head = NULL;
+        return;
+    }
+    else {
+        previous = L->head;
+        current = L->head->link;
+        while(current->link != NULL) {
+            previous = current;
+            current = current->link;
+        }
+        free(current);
+        previous->link = NULL;
+    }
+}
+
+void freeLinkedList_h(linkedList_h* L) {
+    listNode *p;
+    while(L->head != NULL) {
+        p = L->head;
+        L->head = L->head->link;
+        free(p);
+        p = NULL;
+    }
+}
+
+void printList(linkedList_h* L) {
+    listNode *p;
+    printf("L = (");
+    p = L->head;
+    while(p != NULL) {
+        printf("%s", p->data);
+        p = p->link;
+        if(p != NULL) {
+            printf(", ");
+        }
+    }
+    printf(") \n");
+}
+
+int main(int argc, const char * argv[]) {
+    linkedList_h* L;
+    L = createLinkedList_h();
+    printf("공백 리스트 생성\n");
+    printList(L);
+    
+    printf("리스트에 노드 추가\n");
+    addLastNode(L, "월");
+    addLastNode(L, "수");
+    addLastNode(L, "금");
+    printList(L);
+    
+    printf("리스트 마지막 노드 삭제\n");
+    deleteLastNode(L);
+    printList(L);
+    
+    
+    printf("리스트 공간 해제\n");
+    freeLinkedList_h(L);
+    printList(L);
+    
+    return 0;
+}
+````
+
+
 
 _____
 
