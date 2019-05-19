@@ -181,7 +181,7 @@ _____
 
 - 이중 연결 리스트(doubly linked list)
 
-  링크를 두개 만들어 양쪽 방향 어느쪽으로 순회할수 있도록 노드를 연결한 리스트.
+  링크를 두개 만들어 양쪽 방향 어느쪽으로 순회할수 있도록 노드를 연결한 리스트. (C++의 List)
 
   
 
@@ -228,6 +228,30 @@ void addLastNode(linkedList_h* L, char* x) {
         p = p->link;
     }
     p->link = newNode;
+}
+
+void insertNode(linkedList_h* L, char* x, int index) {
+    int i;
+    listNode* newNode = (listNode*)malloc(sizeof(listNode));
+    listNode* p = L->head;
+    listNode* pp;
+    
+    strcpy(newNode->data, x);
+    newNode->link = NULL;
+    
+    if(L->head == NULL) {
+        L->head = newNode;
+        return;
+    }
+    
+    for(i=1; i<index; i++) {
+        p = p->link; // 현재 index에 위치해있는 노드로 이동
+    }
+    pp = p->link; // 현재 index에 위치해있는 노드의 다음 노드를 pp에 설정
+    p->link = newNode; // 현재 index에 위치해있는 노드의 링크를 새로운 노드로
+    if(pp != NULL) { // 다음 노드가 있을경우
+        newNode->link = pp; // 새로운 노드의 링크를 다음 노드로 설정
+    }
 }
 
 void deleteLastNode(linkedList_h *L) {
@@ -280,22 +304,25 @@ int main(int argc, const char * argv[]) {
     linkedList_h* L;
     L = createLinkedList_h();
     printf("공백 리스트 생성\n");
-    printList(L);
+    printList(L); // L = () 
     
     printf("리스트에 노드 추가\n");
     addLastNode(L, "월");
     addLastNode(L, "수");
     addLastNode(L, "금");
-    printList(L);
+    printList(L); // L = (월, 수, 금) 
     
     printf("리스트 마지막 노드 삭제\n");
     deleteLastNode(L);
-    printList(L);
-    
+    printList(L); // L = (월, 수) 
+  
+    printf("리스트 중간에 노드 추가\n");
+    insertNode(L,"화",1);
+    printList(L); // L = (월, 화, 수) 
     
     printf("리스트 공간 해제\n");
     freeLinkedList_h(L);
-    printList(L);
+    printList(L); // L = () 
     
     return 0;
 }
@@ -305,9 +332,11 @@ int main(int argc, const char * argv[]) {
 
 _____
 
-## 4) 파일구조
+## 4) 스택
 
+스택(stack) 쌓아올리다 라는 의미로써 접시를 쌓듯이 자료를 쌓아올린 형태의 구조
 
+스택은 후입선출(LIFO Last-In-First-Out)구조로 마지막에 삽입된 자료가 가장 먼저 삭제되는 구조적 특징이 있음
 
 
 
